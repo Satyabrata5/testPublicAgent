@@ -1,0 +1,83 @@
+/* General body styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fff;
+}
+
+/* Main container for centering content */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Google logo styling */
+img {
+    width: 272px;
+    height: 92px;
+    margin-bottom: 28px;
+}
+
+/* Search bar container */
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dfe1e5;
+    border-radius: 24px;
+    width: 580px;
+    padding: 0 15px;
+}
+
+.search-bar:hover,
+.search-bar:focus-within {
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+    border-color: rgba(223, 225, 229, 0);
+}
+
+/* Search icon */
+.search-bar svg {
+    height: 20px;
+    width: 20px;
+    fill: #9aa0a6;
+}
+
+/* Search input field */
+.search-bar input[type="text"] {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 12px 10px;
+    font-size: 16px;
+    background-color: transparent;
+}
+
+/* Container for the buttons */
+.search-buttons {
+    margin-top: 28px;
+}
+
+/* Styling for both buttons */
+.search-buttons input[type="submit"] {
+    background-color: #f8f9fa;
+    border: 1px solid #f8f9fa;
+    border-radius: 4px;
+    color: #3c4043;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin: 0 4px;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+/* Hover effect for buttons */
+.search-buttons input[type="submit"]:hover {
+    border: 1px solid #dadce0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    color: #202124;
+}
