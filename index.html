@@ -27,17 +27,15 @@
     </main>
     
     <script type='text/javascript'>
-        let isChatReady = false;
-        let wasButtonClicked = false;
+        let isChatInitialized = false;
 
         /**
          * This function is called when the "I'm Feeling Lucky" button is clicked.
          */
         function startChat() {
-            wasButtonClicked = true; // Record that the user wants to start a chat
             embeddedservice_bootstrap.settings.language = 'en_US';
             // If the chat service is already ready, open the window immediately.
-            if (isChatReady) {
+            if (isChatInitialized) {
                 console.log("Service is ready. Launching chat now.");
                 embeddedservice_bootstrap.utilAPI.launchChat();
             } else {
@@ -45,34 +43,25 @@
                 // The event listener below will handle opening the window when it's ready.
                 console.log("Service not yet ready. Initializing...");
                 try {
-                    embeddedservice_bootstrap.init(
-                        '00D9X00000TUFNj',
-                        'Service_Agent',
-                        'https://coop-csc--agentdev.sandbox.my.site.com/ESWServiceAgent1757506538642',
-                        {
-                            scrt2URL: 'https://coop-csc--agentdev.sandbox.my.salesforce-scrt.com'
-                        }
-                    );
-                } catch (err) {
-                    console.error('Error on init: ', err);
-                }
+                embeddedservice_bootstrap.init(
+                    '00D9X00000TUFNj',
+                    'Service_Agent',
+                    'https://coop-csc--agentdev.sandbox.my.site.com/ESWServiceAgent1757506538642',
+                    {
+                        scrt2URL: 'https://coop-csc--agentdev.sandbox.my.salesforce-scrt.com'
+                    },
+                    // This callback function runs AFTER initialization is complete
+                    function() {
+                        console.log("Initialization complete. Launching chat window.");
+                        embeddedservice_bootstrap.utilAPI.launchChat();
+                        isChatInitialized = true; // Set flag to true after success
+                    }
+                );
+            } catch (err) {
+                console.error('Error loading Embedded Messaging ', err);
+            }
             }
         }
-
-        /**
-         * This listener waits for the 'embeddedservice.ready' event from Salesforce.
-         * This is the most reliable way to know when the API is available.
-         */
-        window.addEventListener("embeddedservice.ready", function() {
-            console.log("Event 'embeddedservice.ready' fired. Service is now available.");
-            isChatReady = true; // Mark the service as ready to use.
-
-            // If the user already clicked the button, open the chat window now.
-            if (wasButtonClicked) {
-                console.log("Button was already clicked. Launching chat window.");
-                embeddedservice_bootstrap.utilAPI.launchChat();
-            }
-        });
     </script>
     
     <script type='text/javascript' src='https://coop-csc--agentdev.sandbox.my.site.com/ESWServiceAgent1757506538642/assets/js/bootstrap.min.js'></script>
