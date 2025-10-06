@@ -31,13 +31,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Messaging (Hidden)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-
-    <h1>Embedded Messaging Test</h1>
-    <p>The messaging service is initializing in the background, but the button is hidden.</p>
-
     <script type='text/javascript'>
         function initEmbeddedMessaging() {
             try {
@@ -64,19 +60,10 @@
     function launchChat() {
         embeddedservice_bootstrap.utilAPI.launchChat()
             .then(() => {
-                // Success handler used to perform actions
-                // when the chat client launches successfully.
-                // For example, create a method that disables the launch chat button.
                 disableLaunchChatButton();
             }).catch(() => {
-                // Error handler used to perform actions
-                // if the chat client fails to launch.
-                // For example, create a method that hides the launch chat button.
                 hideLaunchChatButton();
             }).finally(() => {
-                // Finally handler used to perform any clean-up actions
-                // regardless of whether the chat client launches successfully or not.
-                // For example, create a method that logs the user’s attempt to chat.
                 logEndUserAttemptToChat();
             });
     }
