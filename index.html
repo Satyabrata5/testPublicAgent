@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1">
     <title>Google</title>
     <link rel="stylesheet" href="style.css"> 
     <link rel="icon" href="https://www.google.com/favicon.ico" type="image/x-icon">
@@ -28,27 +27,34 @@
     </main>
     
     <script type='text/javascript'>
-        let isChatInitialized = false; // Flag to prevent multiple initializations
+        let isChatInitialized = false;
 
-        // CHANGE #2: Renamed the function to startChat() and added a check
         function startChat() {
+            // If chat is already initialized, just open the window.
             if (isChatInitialized) {
-                // If you want to open the window on subsequent clicks, you'd add that API call here
-                console.log("Chat has already been initialized.");
+                embeddedservice_core.launchChat();
                 return;
             }
+            
+            // On the first click, initialize the chat.
             try {
-                embeddedservice_bootstrap.settings.language = 'en_US';
-
                 embeddedservice_bootstrap.init(
                     '00D9X00000TUFNj',
                     'Service_Agent',
                     'https://coop-csc--agentdev.sandbox.my.site.com/ESWServiceAgent1757506538642',
                     {
                         scrt2URL: 'https://coop-csc--agentdev.sandbox.my.salesforce-scrt.com'
+                    },
+                    // This callback function runs AFTER initialization is complete
+                    function() {
+                        console.log("Initialization complete. Launching chat window.");
+                        
+                        // ✨ This is the command that opens the chat window directly
+                        embeddedservice_bootstrap.utilAPI.launchChat();
+
+                        isChatInitialized = true; // Set flag to true after success
                     }
                 );
-                isChatInitialized = true; // Set flag to true after first run
             } catch (err) {
                 console.error('Error loading Embedded Messaging ', err);
             }
