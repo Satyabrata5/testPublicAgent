@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <title>Google</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> 
     <link rel="icon" href="https://www.google.com/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -22,28 +22,39 @@
 
             <div class="search-buttons">
                 <input type="submit" value="Google Search">
-                <input type="submit" name="btnI" value="I'm Feeling Lucky">
+                <input type="button" value="I'm Feeling Lucky" onclick="startChat()">
             </div>
         </form>
     </main>
+    
     <script type='text/javascript'>
-	function initEmbeddedMessaging() {
-		try {
-			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
+        let isChatInitialized = false; // Flag to prevent multiple initializations
 
-			embeddedservice_bootstrap.init(
-				'00D9X00000TUFNj',
-				'Service_Agent',
-				'https://coop-csc--agentdev.sandbox.my.site.com/ESWServiceAgent1757506538642',
-				{
-					scrt2URL: 'https://coop-csc--agentdev.sandbox.my.salesforce-scrt.com'
-				}
-			);
-		} catch (err) {
-			console.error('Error loading Embedded Messaging ', err);
-		}
-	};
+        // CHANGE #2: Renamed the function to startChat() and added a check
+        function startChat() {
+            if (isChatInitialized) {
+                // If you want to open the window on subsequent clicks, you'd add that API call here
+                console.log("Chat has already been initialized.");
+                return;
+            }
+            try {
+                embeddedservice_bootstrap.settings.language = 'en_US';
+
+                embeddedservice_bootstrap.init(
+                    '00D9X00000TUFNj',
+                    'Service_Agent',
+                    'https://coop-csc--agentdev.sandbox.my.site.com/ESWServiceAgent1757506538642',
+                    {
+                        scrt2URL: 'https://coop-csc--agentdev.sandbox.my.salesforce-scrt.com'
+                    }
+                );
+                isChatInitialized = true; // Set flag to true after first run
+            } catch (err) {
+                console.error('Error loading Embedded Messaging ', err);
+            }
+        };
     </script>
-    <script type='text/javascript' src='https://coop-csc--agentdev.sandbox.my.site.com/ESWServiceAgent1757506538642/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+    
+    <script type='text/javascript' src='https://coop-csc--agentdev.sandbox.my.site.com/ESWServiceAgent1757506538642/assets/js/bootstrap.min.js'></script>
 </body>
 </html>
