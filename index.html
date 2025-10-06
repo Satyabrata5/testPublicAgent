@@ -35,7 +35,7 @@
          */
         function startChat() {
             wasButtonClicked = true; // Record that the user wants to start a chat
-
+            embeddedservice_bootstrap.settings.language = 'en_US';
             // If the chat service is already ready, open the window immediately.
             if (isChatReady) {
                 console.log("Service is ready. Launching chat now.");
